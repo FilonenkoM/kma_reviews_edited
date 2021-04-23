@@ -5,7 +5,7 @@
                 <b-card-body>
                     <div v-if="adminZone" class="d-flex justify-content-end row mb-2">
                         <b-button variant="outline-info" class="admin-button mr-1" @click="deleteReview(review.id)">Видалити відгук</b-button>
-                        <b-button variant="outline-primary" class="admin-button">Заблокувати автора</b-button>
+<!--                        <b-button variant="outline-primary" class="admin-button">Заблокувати автора</b-button>-->
                     </div>
                     <div v-else class="d-flex justify-content-end row mb-2"/>
                     <b-card-title>{{review.teacher.name}}</b-card-title>
