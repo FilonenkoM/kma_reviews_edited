@@ -52,9 +52,16 @@ export const router = new VueRouter( {
 });
 
 
+
 new Vue({
     store,
     render: h => h(App),
     router: router ,
+    beforeCreate() {
+      let token = localStorage.getItem("token")
+      if(token) {
+        this.$store.dispatch("auth/restoreToken", token)
+      }
+    }
 }).$mount('#app');
 

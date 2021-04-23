@@ -101,16 +101,15 @@ export default {
     },
 
     async blockUser(student_id, token) {
-        let res = await Vue.http.post(baseApi.baseUrl + '/user/student/block', {
-            headers: {
-                "Authorization": token
-            },
+        console.log(token)
+        let res = await Vue.http.post(baseApi.baseUrl + '/user/student/block', null, {
             params: {
                 "student_id": student_id
+            },
+            headers: {
+                "Authorization": token
             }
         })
-
-
 
         return res.body
     },

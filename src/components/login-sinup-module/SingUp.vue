@@ -44,13 +44,15 @@
 </template>
 
 <script>
+    import md5 from "md5";
+
     export default {
         name: "SingUp",
         methods:{
             submitSingUp(){
                 let credentials = {
                     email: this.login,
-                    password: this.password
+                    password: md5(this.password)
                 }
                 this.$store.dispatch("auth/signUp", credentials)
             },

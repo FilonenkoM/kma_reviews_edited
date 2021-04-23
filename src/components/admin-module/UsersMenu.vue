@@ -1,11 +1,20 @@
 <template>
   <b-container>
-    <filter-form />
-    <review-items />
     <b-card v-for="user in users" class="mt-1">
       <b-row>
         <b-col class="col-10">{{ user.email }}</b-col>
-        <b-col class="col-2">
+        <b-col v-if="user.enabled" class="col-10">
+            <span style="background-color: #00CC00; color: white; padding: 5px; border-radius: 5px">
+                enabled
+            </span>
+        </b-col>
+        <b-col v-else class="col-10">
+            <span style="background-color: red; color: white; padding: 5px; border-radius: 5px">
+                blocked
+            </span>
+        </b-col>
+
+        <b-col v-if="user.enabled" class="col-2">
           <b-button @click="blockUser(user.id)" variant="outline-info">
             Block</b-button
           >
