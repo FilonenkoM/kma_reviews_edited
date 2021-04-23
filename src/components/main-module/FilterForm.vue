@@ -1,7 +1,7 @@
 <template>
     <b-input-group>
         <b-form-select  v-model="selectedTeacher" :options="teacherOptions" id="teachers"/>
-        <b-form-select  v-model="selectedFaculty" :options="facultyOptions" id="faculty"/>
+<!--        <b-form-select  v-model="selectedFaculty" :options="facultyOptions" id="faculty"/>-->
         <b-input-group-append class="pl-2">
             <b-button variant="outline-light bg-success" @click="getByFilter">Пошук</b-button>
         </b-input-group-append>
