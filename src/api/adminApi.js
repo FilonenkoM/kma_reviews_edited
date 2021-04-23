@@ -93,13 +93,17 @@ export default {
 
     async deleteReview(reviewId, token){
         try {
-            let res = await Vue.http.delete(baseApi.baseUrl + '/review?review_id='+reviewId, null, {
+            let res = await Vue.http.delete(baseApi.baseUrl + '/review', {
+                params: {
+                    review_id: reviewId
+                },
                 headers: {
                     "Authorization": token
                 }
             });
             return true;
         }catch(e){
+            alert(JSON.stringify(e))
             console.log(e);
             return false;
         }

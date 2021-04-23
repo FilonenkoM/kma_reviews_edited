@@ -65,18 +65,19 @@ export default {
     },
 
     async postNewReview(message, token) {
-      //  let options = { emulateJSON: true };
-        message.sendTime = new Date();
-        let res = await Vue.http.post(baseApi.postReview,  message /*options*/, {
-            headers: {
-                "Authorization": token
-            }
-        });
-        let teacher = await Vue.http.get(baseApi.baseUrl+'/teacher?teacher_id='+message.teacherId);
-        let result = res.body;
-        result.teacher = teacher.body;
-        return result;
-    },
+        //  let options = { emulateJSON: true };
+          message.sendTime = new Date();
+          let res = await Vue.http.post(baseApi.postReview,  message /*options*/, {
+              headers: {
+                  "Authorization": token
+              }
+          });
+          let resT = await Vue.http.get(baseApi.baseUrl+'/teacher/all');
+          let teacher = resT.body;
+          let result = res.body;
+          result.teacher = teacher.find(x=>x.id===message.teacherId);
+          return result;
+      },
 
     async postSignIn(credentials) {
         let res = await Vue.http.post(baseApi.signIn, null, {
