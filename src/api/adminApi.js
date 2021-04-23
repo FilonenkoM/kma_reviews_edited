@@ -43,10 +43,15 @@ export default {
         }
     },
 
-    async addTeacher(data){
+    async addTeacher(data, token){
         try {
 
-            let res = await Vue.http.post(baseApi.baseUrl + '/teacher', data);
+            let res = await Vue.http.post(baseApi.baseUrl + '/teacher', data, {
+                headers: {
+                    "Authorization": token
+                }
+            });
+
             let faculty = await Vue.http.get(baseApi.baseUrl+"/faculty/all");
             let name = '';
             faculty.body.forEach(a=> {
@@ -58,13 +63,18 @@ export default {
 
             return res.body;
         }catch(e){
+            
             console.log(e);
             return null;
         }
     },
-    async deleteTeacher(teacher_id){
+    async deleteTeacher(teacher_id, token){
         try {
-            let res = await Vue.http.delete(baseApi.baseUrl + '/teacher?teacher_id='+teacher_id);
+            let res = await Vue.http.delete(baseApi.baseUrl + '/teacher?teacher_id='+teacher_id, null, {
+                headers: {
+                    "Authorization": token
+                }
+            });
             return true;
         }catch(e){
             console.log(e);
@@ -81,9 +91,13 @@ export default {
         }
     },
 
-    async deleteReview(reviewId){
+    async deleteReview(reviewId, token){
         try {
-            let res = await Vue.http.delete(baseApi.baseUrl + '/review?review_id='+reviewId);
+            let res = await Vue.http.delete(baseApi.baseUrl + '/review?review_id='+reviewId, null, {
+                headers: {
+                    "Authorization": token
+                }
+            });
             return true;
         }catch(e){
             console.log(e);

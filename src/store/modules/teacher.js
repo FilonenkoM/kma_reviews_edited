@@ -18,14 +18,14 @@ const actions = {
         //const data = await response.json();
         commit('getTeacherListMutation', response);
     },
-    async deleteTeacherAction({commit,state}, {id}){
-        let response = await adminApi.deleteTeacher(id);
+    async deleteTeacherAction({commit,state}, {id, token}){
+        let response = await adminApi.deleteTeacher(id, token);
         if(response===false) return false;
         commit('deleteTeacherMutation', id);
         return true;
     },
-    async addTeacher({commit, state},{teacher}){
-        let response = await adminApi.addTeacher(teacher);
+    async addTeacher({commit, state},{teacher, token}){
+        let response = await adminApi.addTeacher(teacher, token);
         if(response===null) return false;
         commit('addTeacherMutation', response);
         return true;

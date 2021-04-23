@@ -59,8 +59,12 @@ new Vue({
     router: router ,
     beforeCreate() {
       let token = localStorage.getItem("token")
+      let user = JSON.parse(localStorage.getItem("user"))
       if(token) {
         this.$store.dispatch("auth/restoreToken", token)
+      }
+      if(user) {
+        this.$store.dispatch("auth/restoreUser", user)
       }
     }
 }).$mount('#app');

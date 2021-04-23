@@ -72,7 +72,6 @@ export default {
                 "Authorization": token
             }
         });
-        alert(res.status)
         let teacher = await Vue.http.get(baseApi.baseUrl+'/teacher?teacher_id='+message.teacherId);
         let result = res.body;
         result.teacher = teacher.body;

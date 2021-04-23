@@ -23,7 +23,6 @@ const actions = {
 
     async signUp({commit, state},{email, password}){
         let response = await userApi.postSignUp({email, password});
-        alert(JSON.response(response.body))
         if(response===null) return false;
         router.push("/login")
         return true;
@@ -34,7 +33,10 @@ const actions = {
         commit("restoreToken", token);
     },
 
+    async restoreUser({commit, state},user){
 
+        commit("restoreUser", user);
+    },
 };
 
 const mutations = {
@@ -43,12 +45,16 @@ const mutations = {
         state.token = credentials.token
 
         localStorage.setItem("token", state.token)
+        localStorage.setItem("user", JSON.stringify(state.user))
+
     },
     restoreToken(state, token){
         state.token = token
     },
 
- 
+    restoreUser(state, user){
+        state.user = user
+    },
  };
 
 export default {

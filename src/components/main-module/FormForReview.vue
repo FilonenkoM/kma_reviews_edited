@@ -19,9 +19,16 @@
       <b-form-group label="Відгук:">
         <b-form-textarea v-model="review" required rows="6" />
       </b-form-group>
-
-      <b-button type="submit" variant="primary">Відправити</b-button>
+      <b-button v-if="user && user.enabled" type="submit" variant="primary"
+        >Відправити</b-button
+      >
       <b-button type="reset" variant="info">Очистити форму</b-button>
+      <div v-if="user">
+        <div style="color: red" v-if="user.enabled == false">
+            Ви заблоковані. Створіть новий акаунт щоб обійти перевірки злого адміна 
+        </div>
+      </div>
+      <div v-else>Sign in to write a review</div>
     </b-form>
   </b-card>
 </template>
@@ -41,9 +48,13 @@ export default {
       );
       return res.sort((a, b) => -(a.id - b.id));
     },
-    token: state => {
-            return state.auth.token
+    token: (state) => {
+      return state.auth.token;
     },
+    user: (state) => {
+      return state.auth.user;
+    },
+
   }),
 
   data() {
@@ -60,10 +71,10 @@ export default {
         teacherId: this.selectedTeacher,
       };
       console.log(review);
-      let bol = await this.$store.dispatch(
-        "reviews/addReviewAction",
-        { review: review, token: this.token },
-      );
+      let bol = await this.$store.dispatch("reviews/addReviewAction", {
+        review: review,
+        token: this.token,
+      });
       console.log(bol);
       this.selectedTeacher = null;
       this.review = null;

@@ -4,6 +4,7 @@ import baseApi from "../../api/apiUrl";
 import Vue from "vue";
 import VueResource from 'vue-resource';
 import adminApi from "../../api/adminApi";
+import { router } from "../../main";
 Vue.use(VueResource);
 
 const state = () => ({all: [], currentPage: -1, totalPages: 0, facId: null, techId: null});
@@ -14,21 +15,23 @@ const getters = {
 
 const actions = {
     async addReviewAction({commit, state}, {review, token}) {
-        alert(token)
+
         let result = await userApi.postNewReview(review, token);
         const data = result;
         let notAddToCurrent =  state.techId
             && data.teacher.id !== state.techId
             || state.facId
             && state.facId !== data.teacher.faculty.id;
+
+        alert("hello")
          if(!notAddToCurrent ) {
              commit('addReviewMutation', data);
              return true;
          }
          return false;
     },
-    async deleteReviewAction({commit, state}, {id}){
-        let response = await adminApi.deleteReview(id);
+    async deleteReviewAction({commit, state}, {id, token}){
+        let response = await adminApi.deleteReview(id, token);
         if(response===false) return false;
         commit('deleteReviewMutation', id);
         return true;
